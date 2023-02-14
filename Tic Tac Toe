@@ -1,0 +1,72 @@
+# Define the Tic Tac Toe board as a 2D list
+board = [
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", " ", " "]
+]
+
+# Define a function to print the Tic Tac Toe board
+def print_board():
+    print("   |   |   ")
+    print(" {} | {} | {} ".format(board[0][0], board[0][1], board[0][2]))
+    print("___|___|___")
+    print("   |   |   ")
+    print(" {} | {} | {} ".format(board[1][0], board[1][1], board[1][2]))
+    print("___|___|___")
+    print("   |   |   ")
+    print(" {} | {} | {} ".format(board[2][0], board[2][1], board[2][2]))
+    print("   |   |   ")
+
+# Define a function to check if a player has won the game
+def check_win(player):
+    # Check rows
+    for row in board:
+        if row.count(player) == 3:
+            return True
+    # Check columns
+    for col in range(3):
+        if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+            return True
+    # Check diagonals
+    if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+        return True
+    if board[0][2] == player and board[1][1] == player and board[2][0] == player:
+        return True
+    return False
+
+# Define a function to play the game
+def play_game():
+    # Initialize variables
+    player = "X"
+    turns = 0
+    # Loop until the game is over
+    while True:
+        # Print the board
+        print_board()
+        # Ask the player to choose a row and column to place their mark
+        row = int(input("Enter the row (0-2) where you want to place your mark: "))
+        col = int(input("Enter the column (0-2) where you want to place your mark: "))
+        # Check if the chosen spot is empty
+        if board[row][col] == " ":
+            board[row][col] = player
+            turns += 1
+        else:
+            print("That spot is already taken. Try again.")
+            continue
+        # Check if the game has been won or tied
+        if check_win(player):
+            print_board()
+            print("Congratulations! Player {} has won the game!".format(player))
+            break
+        elif turns == 9:
+            print_board()
+            print("The game is tied.")
+            break
+        # Switch to the other player
+        if player == "X":
+            player = "O"
+        else:
+            player = "X"
+
+# Start the game
+play_game()
